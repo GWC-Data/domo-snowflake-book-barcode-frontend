@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getFingerprint } from "./utils/fingerprint";
 import { errorToast, successToast } from './Toaster';
 import "./App.css";
+import PDFViewer from "./PDFViewer";
 
 
 const App = () => {
@@ -108,7 +109,7 @@ const App = () => {
     setAlreadySubmitted(false);
   }
 
-
+  // const pdfFile = '/assets/book/gwc_book.pdf';
   return (
     <>
     {
@@ -125,7 +126,7 @@ const App = () => {
               <button onClick={handleLogout} type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Logout</button>
             </div>
             <div>
-            <embed src="/assets/book/gwc_book.pdf#toolbar=0" width="100%" height="600px" type="application/pdf"></embed>
+              <PDFViewer />
             </div>
           </div>
         </div>
