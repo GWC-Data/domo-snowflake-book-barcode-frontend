@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getFingerprint } from "./utils/fingerprint";
-// import { successToast } from "./components/Toaster";
 import { successToast } from './Toaster';
 import "./App.css";
 
 
 const App = () => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("vishwanath@gwcdata.ai");
+  const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
   const [company, setCompany] = useState("");
   const [designation, setDesignation] = useState("");
