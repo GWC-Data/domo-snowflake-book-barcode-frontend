@@ -82,7 +82,35 @@ const PDFViewer = () => {
   // Render PDF after loading
   useEffect(() => {
     if (pdfDocument && canvasRefs.length === pdfDocument.numPages) {
-      renderPDF();
+
+        const renderPDF = async () => {
+            if (!pdfDocument || canvasRefs.length === 0) return;
+        
+            for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
+              const page = await pdfDocument.getPage(pageNum);
+              const canvasRef = canvasRefs[pageNum - 1];
+              const canvas = canvasRef?.current;
+        
+              if (!canvas) {
+                console.warn(`Canvas not found for page ${pageNum}`);
+                continue;
+              }
+        
+              const context = canvas.getContext('2d');
+              const scale = 1.5;
+              const viewport = page.getViewport({ scale });
+        
+              canvas.height = viewport.height;
+              canvas.width = viewport.width;
+        
+              await page.render({
+                canvasContext: context,
+                viewport
+              }).promise;
+            }
+        };
+
+        renderPDF();
     }
   }, [pdfDocument, canvasRefs]);
 
@@ -112,32 +140,7 @@ const PDFViewer = () => {
     }
   };
 
-  const renderPDF = async () => {
-    if (!pdfDocument || canvasRefs.length === 0) return;
-
-    for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
-      const page = await pdfDocument.getPage(pageNum);
-      const canvasRef = canvasRefs[pageNum - 1];
-      const canvas = canvasRef?.current;
-
-      if (!canvas) {
-        console.warn(`Canvas not found for page ${pageNum}`);
-        continue;
-      }
-
-      const context = canvas.getContext('2d');
-      const scale = 1.5;
-      const viewport = page.getViewport({ scale });
-
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-
-      await page.render({
-        canvasContext: context,
-        viewport
-      }).promise;
-    }
-  };
+ 
 
   const styles = {
     pdfViewer: {
