@@ -124,3 +124,12 @@ form {
     margin: 0 auto;
   }
 } */
+
+
+#sidebarContainer {
+  display: none !important;
+  width: 0 !important;
+}
+#outerContainer.sidebarOpen #mainContainer {
+  margin-left: 0 !important;
+}
