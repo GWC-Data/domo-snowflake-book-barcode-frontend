@@ -61,7 +61,7 @@ const App = () => {
       
     const fingerprint = await getFingerprint();
     localStorage.setItem("fingerprint", fingerprint);    
-    setAlreadySubmitted(true);
+    
 
     const data = {
       name,
@@ -79,6 +79,7 @@ const App = () => {
       body: JSON.stringify(data),
     }).then(() => {
       setLoading(false);
+      setAlreadySubmitted(true);
       const link = document.createElement('a');
       link.href = '/assets/book/gwc_book.pdf';
       link.download = 'gwc_book.pdf';
