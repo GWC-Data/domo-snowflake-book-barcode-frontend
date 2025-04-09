@@ -1,0 +1,36 @@
+/* custom-notyf.css */
+
+.notyf__toast {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.notyf__toast--error {
+  color: #000;
+  font-size: 15px;
+  font-weight: 400;
+}
+.notyf__toast--success {
+  color: #000;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.notyf__icon--success {
+  color: #4caf50 !important; /* Custom success icon color */
+}
+
+.notyf__icon--error {
+  color: #f44336 !important; /* Custom error icon color */
+}
+.notyf__icon--error, .notyf__icon--success {
+  width: 10px !important;
+  background: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 25px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  margin: 0 auto;
+  position: relative;
+}
