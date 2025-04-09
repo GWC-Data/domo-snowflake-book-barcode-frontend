@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getFingerprint } from "./utils/fingerprint";
-import { successToast } from './Toaster';
+import { errorToast, successToast } from './Toaster';
 import "./App.css";
 
 
@@ -12,6 +12,7 @@ const App = () => {
   const [designation, setDesignation] = useState("");
   const [error, setError] = useState("");
   const [alreadySubmitted, setAlreadySubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fingerprint = localStorage.getItem("fingerprint");
@@ -51,6 +52,7 @@ const App = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (error) {
       alert("Fix the error before submitting.");
@@ -69,22 +71,34 @@ const App = () => {
       designation,
     };
 
-    console.log(data);
+    fetch('https://domo-snowflake-event.onrender.com/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then(() => {
+      setLoading(false);
+      const link = document.createElement('a');
+      link.href = '/assets/book/gwc_book.pdf';
+      link.download = 'gwc_book.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
 
-    const link = document.createElement('a');
-    link.href = '/assets/book/gwc_book.pdf';
-    link.download = 'gwc_book.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      successToast("Registration submitted successfully.");
 
-    successToast("Registration submitted successfully.");
-
-    setName("");
-    setEmail("");
-    setLocation("");
-    setCompany("");
-    setDesignation("");
+      setName("");
+      setEmail("");
+      setLocation("");
+      setCompany("");
+      setDesignation("");
+    })
+    .catch((error) => {
+      setLoading(false);
+      errorToast("Registration failed. Please try again.");
+      console.error('Error:', error);
+    })
   };
 
   const handleDownload = () => {
@@ -198,8 +212,13 @@ const App = () => {
                     required
                   />
                 </div>
-
-                <button type="submit" className="register-button">Register Now</button>
+                {
+                  loading ? (
+                    <button type="button" className="register-button" disabled>Loading...</button>
+                  ) : (
+                    <button type="submit" className="register-button">Register Now</button>
+                  )
+                }
               </form>
             )
           }
