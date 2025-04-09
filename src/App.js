@@ -174,7 +174,7 @@ const App = () => {
                 </div>
 
                 <div className="mb-5">
-                  <label htmlFor="Designation" className="block mb-1 text-sm font-medium text-gray-900">designation <span className="text-red-500">*</span></label>
+                  <label htmlFor="Designation" className="block mb-1 text-sm font-medium text-gray-900">Designation <span className="text-red-500">*</span></label>
                   <input
                     type="text"
                     value={designation}
