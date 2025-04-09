@@ -145,7 +145,7 @@ const App = () => {
                 <button onClick={handleLogout} type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Logout</button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className="mb-5">
                 <h3 className="text-center text-xl font-medium uppercase my-5">Registration Form</h3>
                 
                 <div className="mb-5">
